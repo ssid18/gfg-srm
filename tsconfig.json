@@ -2,12 +2,24 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "styles/*": ["./src/styles/*"],
-      "components/*": ["./src/components/*"],
-      "images/*": ["./src/images/*"],
-      "api/*": ["./lib/*"]
+      "styles/*": [
+        "./src/styles/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "images/*": [
+        "./src/images/*"
+      ],
+      "api/*": [
+        "./lib/*"
+      ]
     },
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -19,8 +31,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
-    "jsx": "preserve"
+    "jsx": "react-jsx",
+    "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/contentful.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/utils/contentful.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
