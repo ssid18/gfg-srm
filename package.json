@@ -25,6 +25,7 @@
     "postprocessing": "^6.38.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-hook-form": "^7.67.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^6.30.2",
     "tailwind-merge": "^3.4.0",
