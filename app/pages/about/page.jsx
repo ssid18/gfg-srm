@@ -82,6 +82,7 @@ export default function HomePage() {
                             justifyContent: "center",
                             minHeight: "100vh",
                             padding: "40px",
+                            paddingTop: "120px",
                             color: "white",
                         }}
                     >
@@ -91,7 +92,7 @@ export default function HomePage() {
                             transition={{ duration: 0.8, ease: "easeOut" }}
                             style={{
                                 fontFamily: "San Francisco pro",
-                                fontSize: "5rem",
+                                fontSize: "clamp(3rem, 8vw, 5rem)",
                                 marginBottom: "20px",
                                 background: "linear-gradient(135deg, #ffffff 0%, #46b94e 50%, #ffffff 100%)",
                                 backgroundSize: "200% 200%",
@@ -99,6 +100,7 @@ export default function HomePage() {
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",
                                 animation: "gradient-shift 3s ease infinite",
+                                textAlign: "center",
                             }}
                         >
                             ABOUT US
@@ -110,10 +112,11 @@ export default function HomePage() {
                             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                             style={{
                                 fontFamily: "San Francisco pro",
-                                fontSize: "2.5rem",
+                                fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
                                 marginBottom: "30px",
                                 color: "#46b94e",
                                 textAlign: "center",
+                                padding: "0 20px",
                             }}
                         >
                             GeeksForGeeks SRMIST NCR Chapter
@@ -125,17 +128,18 @@ export default function HomePage() {
                             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                             style={{
                                 fontFamily: "San Francisco Pro",
-                                fontSize: "1.15rem",
+                                fontSize: "clamp(1rem, 2vw, 1.15rem)",
                                 textAlign: "center",
                                 lineHeight: "1.8",
                                 color: "rgba(255, 255, 255, 0.92)",
                                 margin: 0,
-                                padding: "40px",
+                                padding: "clamp(20px, 5vw, 40px)",
                                 background: "rgba(0, 0, 0, 0.6)",
                                 borderRadius: "20px",
                                 border: "1px solid rgba(70, 185, 78, 0.3)",
                                 backdropFilter: "blur(10px)",
                                 maxWidth: "900px",
+                                width: "100%",
                             }}
                         >
                             Hey there,
@@ -152,42 +156,7 @@ export default function HomePage() {
                         </motion.p>
                     </div>
 
-                    {/* Scroll indicator */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1, duration: 0.5 }}
-                        style={{
-                            marginTop: "10px",
-                            animation: "bounce 2s infinite",
-                            display: "flex",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <div
-                            style={{
-                                width: "30px",
-                                height: "50px",
-                                border: "2px solid rgba(255, 255, 255, 0.5)",
-                                borderRadius: "25px",
-                                position: "relative",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    width: "6px",
-                                    height: "10px",
-                                    background: "#46b94e",
-                                    borderRadius: "3px",
-                                    position: "absolute",
-                                    top: "8px",
-                                    left: "50%",
-                                    transform: "translateX(-50%)",
-                                    animation: "scroll 2s infinite",
-                                }}
-                            />
-                        </div>
-                    </motion.div>
+
                 </motion.div>
 
                 {/* Mission & Vision Section */}
@@ -201,7 +170,7 @@ export default function HomePage() {
                             maxWidth: "1200px",
                             margin: "0 auto",
                             display: "grid",
-                            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                             gap: "40px",
                         }}
                     >
@@ -243,7 +212,7 @@ export default function HomePage() {
                             transition={{ duration: 0.6 }}
                             style={{
                                 fontFamily: "San Francisco",
-                                fontSize: "3rem",
+                                fontSize: "clamp(2rem, 5vw, 3rem)",
                                 textAlign: "center",
                                 marginBottom: "60px",
                                 color: "#46b94e",
@@ -332,7 +301,7 @@ export default function HomePage() {
                         <h2
                             style={{
                                 fontFamily: "San Francisco",
-                                fontSize: "3rem",
+                                fontSize: "clamp(2rem, 5vw, 3rem)",
                                 marginBottom: "30px",
                                 color: "#46b94e",
                             }}
@@ -352,6 +321,27 @@ export default function HomePage() {
                             collaboration. Whether you're a beginner or an expert, there's a
                             place for you here.
                         </p>
+
+                        <Link href="/pages/recruitment">
+                            <motion.button
+                                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(70, 185, 78, 0.4)" }}
+                                whileTap={{ scale: 0.95 }}
+                                style={{
+                                    padding: "15px 40px",
+                                    fontSize: "1.2rem",
+                                    fontWeight: "bold",
+                                    color: "white",
+                                    background: "rgba(70, 185, 78, 0.2)",
+                                    border: "1px solid #46b94e",
+                                    borderRadius: "30px",
+                                    backdropFilter: "blur(10px)",
+                                    cursor: "pointer",
+                                    transition: "all 0.3s ease",
+                                }}
+                            >
+                                Register Now
+                            </motion.button>
+                        </Link>
                     </motion.div>
                 </section>
 

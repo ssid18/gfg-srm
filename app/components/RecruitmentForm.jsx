@@ -1,8 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-import { Loader2 } from "lucide-react";
+import { Loader2, Check, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { Logo2 } from "@/app/logo/logo2";
+
+const springValues = {
+    damping: 30,
+    stiffness: 100,
+    mass: 2
+};
 
 export default function RecruitmentForm() {
     const [submitting, setSubmitting] = useState(false);
@@ -10,10 +19,47 @@ export default function RecruitmentForm() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const selectedTeam = watch("team_preference");
 
+    // Tilt Effect Logic
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const rotateX = useSpring(useMotionValue(0), springValues);
+    const rotateY = useSpring(useMotionValue(0), springValues);
+    const scale = useSpring(1, springValues);
+    const opacity = useSpring(0);
+
+    function handleMouse(e) {
+        if (window.innerWidth < 768) return; // Disable tilt on mobile
+
+        const rect = e.currentTarget.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left - rect.width / 2;
+        const offsetY = e.clientY - rect.top - rect.height / 2;
+
+        const rotateAmplitude = 5; // Reduced amplitude for form usability
+        const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+        const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+
+        rotateX.set(rotationX);
+        rotateY.set(rotationY);
+
+        x.set(e.clientX - rect.left);
+        y.set(e.clientY - rect.top);
+    }
+
+    function handleMouseEnter() {
+        scale.set(1.01);
+        opacity.set(1);
+    }
+
+    function handleMouseLeave() {
+        opacity.set(0);
+        scale.set(1);
+        rotateX.set(0);
+        rotateY.set(0);
+    }
+
     const onSubmit = async (data) => {
-        setSubmitted(true);
+        setSubmitting(true);
         try {
-            //Format data to match supabase schema
             const payload = {
                 name: data.name,
                 email_college: data.email_college,
@@ -43,69 +89,207 @@ export default function RecruitmentForm() {
 
     if (submitted) {
         return (
-            <div className="text-center p-10 bg-green-900/20 border border-green-500 rounded-xl text-green-400">
-                <h2 className="text-2xl font-bold mb-2">Application Recieved!</h2>
-                <p>Sit tight, we will review you application and get back to you soon.</p>
-            </div>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center p-12 bg-green-900/20 border border-[#46b94e]/50 rounded-2xl backdrop-blur-xl shadow-[0_0_50px_rgba(70,185,78,0.2)] max-w-lg mx-auto mt-10"
+            >
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                    className="w-20 h-20 bg-[#46b94e] rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(70,185,78,0.6)]"
+                >
+                    <Check size={40} className="text-black" strokeWidth={3} />
+                </motion.div>
+                <h2 className="text-3xl font-bold mb-4 text-white font-sans">Application Received!</h2>
+                <p className="text-gray-300 text-lg">Sit tight! We will review your application and get back to you soon.</p>
+            </motion.div>
         );
     }
 
+    const inputClasses = "w-full p-4 bg-white/5 rounded-xl border border-white/10 focus:border-[#46b94e] focus:bg-white/10 outline-none transition-all duration-300 text-white placeholder-gray-500 focus:shadow-[0_0_20px_rgba(70,185,78,0.2)]";
+    const labelClasses = "block text-sm font-medium text-gray-400 mb-2 ml-1";
+
+    const containerVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.6,
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+    };
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 max-w-2xl mx-auto p-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md text-white">
-            <h2 className="text-3xl font-bold text-center mb-6 text-[#46b94e]">Join the Team</h2>
+        <div
+            className="perspective-1000 w-full max-w-3xl mx-auto"
+            onMouseMove={handleMouse}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            style={{ perspective: "1000px" }}
+        >
+            <motion.form
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                style={{
+                    rotateX,
+                    rotateY,
+                    scale,
+                    transformStyle: "preserve-3d"
+                }}
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-6 p-6 md:p-10 bg-black/40 border border-white/10 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden"
+            >
+                {/* Decorative Elements */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#46b94e] to-transparent opacity-50"></div>
+                <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#46b94e]/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-[#46b94e]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-            {/* Basic Details */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input {...register("name", { required: true })} placeholder="Full Name" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
-                <input {...register("reg_no", { required: true })} placeholder="Registration No. (RA...)" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
-                <input {...register("email_college", { required: true })} placeholder="SRM Email ID" type="email" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
-                <input {...register("email_personal", { required: true })} placeholder="Personal Email ID" type="email" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
-            </div>
-
-            <div className="grid grid-cols-3 gap-4">
-                <input {...register("phone", { required: true })} placeholder="Phone Number" type="tel" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
-                <select {...register("year", { required: true })} className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none">
-                    <option value="" className="text-black">Year</option>
-                    <option value="1" className="text-black">1st Year</option>
-                    <option value="2" className="text-black">2nd Year</option>
-                    <option value="3" className="text-black">3rd Year</option>
-                </select>
-                <input {...register("section", { required: true })} placeholder="Section" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
-            </div>
-
-            <input {...register("branch", { required: true })} placeholder="Branch (e.g. CSE Core)" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
-
-            {/* Team Preference */}
-            <label className="mt-4 text-sm font-semibold text-gray-400">Preferred Domain</label>
-            <select {...register("team_preference", { required: true })} className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none">
-                <option value="" className="text-black">Select a Team</option>
-                <option value="Technical" className="text-black">Technical</option>
-                <option value="Events" className="text-black">Events</option>
-                <option value="Corporate" className="text-black">Corporate / PR</option>
-                <option value="Creatives" className="text-black">Creatives / Design</option>
-            </select>
-
-            {/* Conditional Skills */}
-            {selectedTeam === 'Technical' && (
-                <div className="space-y-2">
-                    <label className="text-sm text-gray-400">Technical Skills</label>
-                    <div className="flex flex-wrap gap-3">
-                        {['React', 'Node.js', 'Python', 'App Dev', 'AI/ML'].map(skill => (
-                            <label key={skill} className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded cursor-pointer">
-                                <input type="checkbox" value={skill} {...register("technical_skills")} /> {skill}
-                            </label>
-                        ))}
-                    </div>
+                {/* Back Button */}
+                <div className="absolute top-6 left-6 z-20">
+                    <Link href="/pages/about">
+                        <motion.button
+                            whileHover={{ scale: 1.1, x: -5 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="p-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-[#46b94e] hover:border-[#46b94e]/50 transition-colors backdrop-blur-md"
+                        >
+                            <ChevronDown className="rotate-90" size={24} />
+                        </motion.button>
+                    </Link>
                 </div>
-            )}
 
-            <input {...register("resume_link", { required: true })} placeholder="Google Drive Resume Link (Public)" type="url" className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
+                {/* Logo2 at top middle */}
+                <motion.div
+                    variants={itemVariants}
+                    className="flex justify-center mb-6"
+                >
+                    <div className="w-32 md:w-40">
+                        <Logo2 />
+                    </div>
+                </motion.div>
 
-            <textarea {...register("description", { required: true })} placeholder="Why should we hire you? (100 words)" rows={4} className="p-3 bg-white/10 rounded-lg border border-white/20 focus:border-[#46b94e] outline-none" />
+                <motion.div variants={itemVariants} className="text-center mb-4 transform-gpu translate-z-10" style={{ transform: "translateZ(20px)" }}>
+                    <h2 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-[#46b94e] to-white animate-gradient-x">Join the Team</h2>
+                    <p className="text-gray-400">Be part of something extraordinary.</p>
+                </motion.div>
 
-            <button disabled={submitting} type="submit" className="mt-4 p-3 bg-[#46b94e] text-black font-bold rounded-lg hover:bg-[#3da544] transition flex justify-center items-center">
-                {submitting ? <Loader2 className="animate-spin" /> : "Submit Application"}
-            </button>
-        </form>
+                {/* Basic Details */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <motion.div variants={itemVariants}>
+                        <label className={labelClasses}>Full Name</label>
+                        <input {...register("name", { required: true })} placeholder="Enter your name" className={inputClasses} />
+                    </motion.div>
+                    <motion.div variants={itemVariants}>
+                        <label className={labelClasses}>Registration No.</label>
+                        <input {...register("reg_no", { required: true })} placeholder="Enter your Registration Number" className={inputClasses} />
+                    </motion.div>
+                    <motion.div variants={itemVariants}>
+                        <label className={labelClasses}>College ID</label>
+                        <input {...register("email_college", { required: true })} placeholder="Enter your College ID" type="email" className={inputClasses} />
+                    </motion.div>
+                    <motion.div variants={itemVariants}>
+                        <label className={labelClasses}>Personal Email ID</label>
+                        <input {...register("email_personal", { required: true })} placeholder="Enter your Personal Email ID" type="email" className={inputClasses} />
+                    </motion.div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <motion.div variants={itemVariants}>
+                        <label className={labelClasses}>Phone Number</label>
+                        <input {...register("phone", { required: true })} placeholder="+91 " type="tel" className={inputClasses} />
+                    </motion.div>
+                    <motion.div variants={itemVariants} className="relative">
+                        <label className={labelClasses}>Year</label>
+                        <div className="relative">
+                            <select {...register("year", { required: true })} className={`${inputClasses} appearance-none cursor-pointer`}>
+                                <option value="" className="text-black">Select Year</option>
+                                <option value="1" className="text-black">1st Year</option>
+                                <option value="2" className="text-black">2nd Year</option>
+                                <option value="3" className="text-black">3rd Year</option>
+                            </select>
+                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
+                        </div>
+                    </motion.div>
+                    <motion.div variants={itemVariants}>
+                        <label className={labelClasses}>Section</label>
+                        <input {...register("section", { required: true })} placeholder="A,B,C,D.." className={inputClasses} />
+                    </motion.div>
+                </div>
+
+                <motion.div variants={itemVariants}>
+                    <label className={labelClasses}>Branch</label>
+                    <input {...register("branch", { required: true })} placeholder=" Core, ECE, AIML..." className={inputClasses} />
+                </motion.div>
+
+                {/* Team Preference */}
+                <motion.div variants={itemVariants}>
+                    <label className="block text-lg font-semibold text-[#46b94e] mb-3">Preferred Domain</label>
+                    <div className="relative">
+                        <select {...register("team_preference", { required: true })} className={`${inputClasses} appearance-none cursor-pointer text-lg`}>
+                            <option value="" className="text-black">Select a Team</option>
+                            <option value="Technical" className="text-black">Technical</option>
+                            <option value="Events" className="text-black">Events</option>
+                            <option value="Corporate" className="text-black">Corporate / PR</option>
+                            <option value="Creatives" className="text-black">Creatives / Design</option>
+                        </select>
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-[#46b94e] pointer-events-none" size={24} />
+                    </div>
+                </motion.div>
+
+                {/* Conditional Skills */}
+                <AnimatePresence>
+                    {selectedTeam === 'Technical' && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
+                        >
+                            <label className={labelClasses}>Technical Skills</label>
+                            <div className="flex flex-wrap gap-3 p-2">
+                                {['React', 'Node.js', 'Python', 'App Dev', 'AI/ML', 'Cloud', 'Blockchain', 'Cybersecurity'].map(skill => (
+                                    <label key={skill} className="relative group cursor-pointer">
+                                        <input type="checkbox" value={skill} {...register("technical_skills")} className="peer sr-only" />
+                                        <span className="block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 transition-all duration-300 peer-checked:bg-[#46b94e] peer-checked:text-black peer-checked:font-bold peer-checked:shadow-[0_0_15px_rgba(70,185,78,0.5)] group-hover:border-[#46b94e]/50">
+                                            {skill}
+                                        </span>
+                                    </label>
+                                ))}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                <motion.div variants={itemVariants}>
+                    <label className={labelClasses}>Resume Link (Public)</label>
+                    <input {...register("resume_link", { required: true })} placeholder="Google Drive / LinkedIn / Portfolio" type="url" className={inputClasses} />
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                    <label className={labelClasses}>Why should we hire you?</label>
+                    <textarea {...register("description", { required: true })} placeholder="Tell us about yourself and why you'd be a great fit... (Max 100 words)" rows={5} className={`${inputClasses} resize-none`} />
+                </motion.div>
+
+                <motion.button
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(70,185,78,0.4)" }}
+                    whileTap={{ scale: 0.98 }}
+                    disabled={submitting}
+                    type="submit"
+                    className="mt-6 p-4 bg-gradient-to-r from-[#46b94e] to-[#3da544] text-black font-bold text-lg rounded-xl hover:brightness-110 transition-all shadow-[0_0_20px_rgba(70,185,78,0.2)] flex justify-center items-center gap-2"
+                >
+                    {submitting ? <Loader2 className="animate-spin" /> : "Submit Application"}
+                </motion.button>
+            </motion.form>
+        </div>
     );
 }
