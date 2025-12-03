@@ -36,8 +36,8 @@ export default function AdrikaSarawatPage() {
         const fetchProfileData = async () => {
             try {
                 const response = await contentfulClient.getEntries({
-                    content_type: 'teamMember',
-                    'fields.slug': 'adrika-sarawat',
+                    content_type: 'memberProfile',
+                    'fields.name': 'Adrika Sarawat',
                 });
 
                 if (response.items.length > 0) {
@@ -52,7 +52,7 @@ export default function AdrikaSarawatPage() {
                         linkedin: member.linkedin || prev.linkedin,
                         github: member.github || prev.github,
                         about: member.about || prev.about,
-                        profileImage: member.profileImage?.fields?.file?.url || prev.profileImage,
+                        profileImage: member.photo?.fields?.file?.url ? (member.photo.fields.file.url.startsWith('//') ? `https:${member.photo.fields.file.url}` : member.photo.fields.file.url) : prev.profileImage,
                         skills: member.skills || prev.skills,
                     }));
                 }
@@ -91,6 +91,7 @@ export default function AdrikaSarawatPage() {
                 >
                     {/* Main Content Container */}
                     <div
+                        className="main-grid"
                         style={{
                             maxWidth: "1400px",
                             margin: "0 auto",
@@ -104,6 +105,7 @@ export default function AdrikaSarawatPage() {
                     >
                         {/* Left Side - Lanyard ID Card */}
                         <div
+                            className="id-card-container"
                             style={{
                                 display: "flex",
                                 justifyContent: "center",
@@ -114,6 +116,7 @@ export default function AdrikaSarawatPage() {
                         >
                             {/* Lanyard String */}
                             <div
+                                className="id-card-wrapper"
                                 style={{
                                     position: "relative",
                                     animation: "swingLanyard 3s ease-in-out infinite",
@@ -273,7 +276,7 @@ export default function AdrikaSarawatPage() {
                         </div>
 
                         {/* Right Side - About Me and Technical Skills */}
-                        <div style={{ display: "flex", flexDirection: "column", gap: "24px", paddingTop: "60px", paddingLeft: "20px", marginLeft: "-30px" }}>
+                        <div className="content-container" style={{ display: "flex", flexDirection: "column", gap: "24px", paddingTop: "60px", paddingLeft: "20px", marginLeft: "-30px" }}>
                             {/* About Me Section */}
                             <div
                                 style={{
@@ -618,8 +621,6 @@ export default function AdrikaSarawatPage() {
           }
         }
 
-
-
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -631,10 +632,34 @@ export default function AdrikaSarawatPage() {
           }
         }
 
+        /* Responsive Styles */
         @media (max-width: 1024px) {
-          main > div {
+          .main-grid {
             grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            gap: 60px !important;
+            padding-right: 0 !important;
+          }
+          
+          .id-card-container {
+            position: relative !important;
+            top: 0 !important;
+            margin-bottom: 40px;
+          }
+
+          .content-container {
+            padding-left: 0 !important;
+            margin-left: 0 !important;
+            padding-top: 0 !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          main {
+            padding: 80px 20px 40px !important;
+          }
+          
+          .id-card-wrapper {
+            transform: scale(0.9);
           }
         }
       `}</style>
