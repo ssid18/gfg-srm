@@ -158,9 +158,6 @@ export default function EventDetailsPage() {
                             className="lg:col-span-2 space-y-8"
                         >
                             <div className="bg-white/5 border border-white/10 rounded-[20px] md:rounded-[25px] p-5 md:p-8 backdrop-blur-md relative overflow-hidden group hover:border-[#46b94e]/30 transition-colors duration-500">
-                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity hidden md:block">
-                                    <Squares speed={0.2} squareSize={20} direction='diagonal' borderColor='#46b94e' hoverFillColor='#46b94e' />
-                                </div>
                                 <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-[#46b94e] font-sf-pro">About Event</h2>
                                 <div className="prose prose-invert prose-sm md:prose-lg max-w-none text-gray-300 font-sf-pro leading-relaxed">
                                     {documentToReactComponents(description)}

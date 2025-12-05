@@ -10,15 +10,17 @@ import { Logo2 } from "../../../logo/logo2";
 export default function AdrikaSarawatPage() {
     const [isHovered, setIsHovered] = useState(false);
     const [profileData, setProfileData] = useState({
-        name: "Aryan Tiwari",
-        role: "Chairperson",
+       name: "Pulkit Gupta",
+        role: "Technical Co-Lead",
         memberId: "GFG-2024-1150",
         location: "SRM Institute of Science and Technology",
-        email: "at8585@srmist.edu.in",
-        linkedin: "https://in.linkedin.com/in/aryan-tiwari-shade",
-        github: "https://github.com/primexshade",
+        email: "gupta.pulkit2408@gmail.com",
+        linkedin: "https://www.linkedin.com/in/pulkitgupta2408/",
+        github: "https://github.com/pulkit1417",
+
         about: "Passionate developer with expertise in modern web technologies. I love building scalable applications and contributing to open-source projects. Always eager to learn new technologies and solve complex problems.",
-        profileImage: "https://images.ctfassets.net/u39iu0kuz48f/1kCU2M9dF2u7ljRFz7tAXf/d8fb86da25e976217abfbdedbeac8a52/image.png",
+        profileImage: "https://images.ctfassets.net/u39iu0kuz48f/2iHxApodM34qW7BuN1mV44/391332fe506b7c43998876e2afff7792/pulkit.jpeg",
+
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
             { name: "Next.js", level: "Advanced", color: "#000000" },
@@ -37,7 +39,7 @@ export default function AdrikaSarawatPage() {
             try {
                 const response = await contentfulClient.getEntries({
                     content_type: 'memberProfile',
-                    'fields.name': 'Aryan Tiwari',
+                    'fields.name': 'Pulkit Gupta',
                 });
 
                 if (response.items.length > 0) {
@@ -52,7 +54,7 @@ export default function AdrikaSarawatPage() {
                         linkedin: member.linkedin || prev.linkedin,
                         github: member.github || prev.github,
                         about: member.about || prev.about,
-                        profileImage: member.photo?.fields?.file?.url ? (member.photo.fields.file.url.startsWith('//') ? `https:${member.photo.fields.file.url}` : member.photo.fields.file.url) : prev.profileImage,
+                        profileImage: member.profileImage || prev.profileImage,
                         skills: member.skills || prev.skills,
                     }));
                 }
@@ -120,6 +122,7 @@ export default function AdrikaSarawatPage() {
                                 className="id-card-wrapper"
                                 style={{
                                     position: "relative",
+                                    
                                     transformOrigin: "top center",
                                 }}
                             >
@@ -164,7 +167,7 @@ export default function AdrikaSarawatPage() {
                                 <div
                                     style={{
                                         width: "320px",
-                                        background: "rgba(10, 10, 10, 0.8)",
+                                        background: "rgba(5, 3, 3, 0.89)",
                                         backdropFilter: "blur(20px)",
                                         borderRadius: "24px",
                                         padding: "30px",
@@ -223,7 +226,7 @@ export default function AdrikaSarawatPage() {
                                     <div style={{ textAlign: "center", marginTop: "30px" }}>
                                         <h2
                                             style={{
-
+                                            
                                                 fontSize: "26px",
                                                 fontWeight: "700",
                                                 marginBottom: "8px",
@@ -615,7 +618,17 @@ export default function AdrikaSarawatPage() {
 
             {/* CSS Animations */}
             <style jsx>{`
-
+        @keyframes swingLanyard {
+          0% {
+            transform: rotate(3deg);
+          }
+          50% {
+            transform: rotate(-3deg);
+          }
+          100% {
+            transform: rotate(3deg);
+          }
+        }
 
         @keyframes fadeInUp {
           from {

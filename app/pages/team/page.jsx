@@ -369,9 +369,15 @@ function MemberCard({ member, router, big = false, year }) {
     const useBlackBackground = year === 2023 || year === 2024 || year === 2025;
     const imageSrc = member.image || "https://placehold.co/300x300/111/46b94e?text=" + member.name[0];
 
+    const handleClick = () => {
+        if (year === 2025) {
+            router.push(`/pages/team/${member.slug}`);
+        }
+    };
+
     return (
         <div
-            onClick={() => router.push(`/pages/team/${member.slug}`)}
+            onClick={handleClick}
             style={{ cursor: "pointer" }}
         >
             <TiltedCard

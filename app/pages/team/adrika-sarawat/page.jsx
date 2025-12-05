@@ -94,16 +94,16 @@ export default function AdrikaSarawatPage() {
                         className="main-grid"
                         style={{
                             maxWidth: "1400px",
+                            width: "100%",
                             margin: "0 auto",
                             display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "40px",
+                            gridTemplateColumns: "400px 1fr",
+                            gridTemplateRows: "auto auto",
+                            gap: "30px",
                             alignItems: "start",
-                            minHeight: "calc(100vh - 200px)",
-                            paddingRight: "60px",
                         }}
                     >
-                        {/* Left Side - Lanyard ID Card */}
+                        {/* Top Left - Lanyard ID Card */}
                         <div
                             className="id-card-container"
                             style={{
@@ -112,6 +112,7 @@ export default function AdrikaSarawatPage() {
                                 alignItems: "center",
                                 position: "sticky",
                                 top: "120px",
+                                left: "220px",
                             }}
                         >
                             {/* Lanyard String */}
@@ -119,7 +120,7 @@ export default function AdrikaSarawatPage() {
                                 className="id-card-wrapper"
                                 style={{
                                     position: "relative",
-                                    animation: "swingLanyard 3s ease-in-out infinite",
+                                    
                                     transformOrigin: "top center",
                                 }}
                             >
@@ -164,12 +165,12 @@ export default function AdrikaSarawatPage() {
                                 <div
                                     style={{
                                         width: "320px",
-                                        background: "linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
+                                        background: "rgba(5, 3, 3, 0.89)",
                                         backdropFilter: "blur(20px)",
-                                        borderRadius: "20px",
+                                        borderRadius: "24px",
                                         padding: "30px",
-                                        border: "2px solid rgba(255,255,255,0.2)",
-                                        boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(0,255,136,0.1)",
+                                        border: "1px solid rgba(0, 255, 136, 0.2)",
+                                        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(0, 255, 136, 0.1), inset 0 0 20px rgba(0, 255, 136, 0.05)",
                                         position: "relative",
                                         overflow: "hidden",
                                         transition: "all 0.3s ease",
@@ -187,9 +188,9 @@ export default function AdrikaSarawatPage() {
                                     {/* Logo2 at Top Center */}
                                     <div
                                         style={{
-                                            width: "120px",
+                                            width: "180px",
                                             height: "auto",
-                                            margin: "0 auto 20px",
+                                            margin: "0 auto 50px",
                                         }}
                                     >
                                         <Logo2 />
@@ -198,9 +199,9 @@ export default function AdrikaSarawatPage() {
                                     {/* Profile Image */}
                                     <div
                                         style={{
-                                            width: "160px",
-                                            height: "160px",
-                                            margin: "20px auto 20px",
+                                            width: "170px",
+                                            height: "170px",
+                                            margin: "20px auto 30px",
                                             borderRadius: "50%",
                                             overflow: "hidden",
                                             border: "4px solid rgba(0,255,136,0.5)",
@@ -220,16 +221,14 @@ export default function AdrikaSarawatPage() {
                                     </div>
 
                                     {/* Name and Role */}
-                                    <div style={{ textAlign: "center", marginTop: "20px" }}>
+                                    <div style={{ textAlign: "center", marginTop: "30px" }}>
                                         <h2
                                             style={{
+                                            
                                                 fontSize: "26px",
                                                 fontWeight: "700",
                                                 marginBottom: "8px",
-                                                background: "linear-gradient(135deg, #fff, #00ff88)",
-                                                WebkitBackgroundClip: "text",
-                                                WebkitTextFillColor: "transparent",
-                                                backgroundClip: "text",
+                                                color: "#00ff88",
                                             }}
                                         >
                                             {profileData.name}
@@ -258,7 +257,7 @@ export default function AdrikaSarawatPage() {
                                         }}
                                     >
                                         <p style={{ fontSize: "11px", color: "#888", marginBottom: "4px" }}>
-                                            MEMBER ID
+                                            Member Since 2024
                                         </p>
                                         <p
                                             style={{
@@ -268,27 +267,38 @@ export default function AdrikaSarawatPage() {
                                                 color: "#00ff88",
                                             }}
                                         >
-                                            {profileData.memberId}
+
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Right Side - About Me and Technical Skills */}
-                        <div className="content-container" style={{ display: "flex", flexDirection: "column", gap: "24px", paddingTop: "60px", paddingLeft: "20px", marginLeft: "-30px" }}>
+                        {/* Right Column - About Me and Technical Skills */}
+                        <div
+                            className="right-column"
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "30px",
+                                paddingLeft: "240px",
+                                paddingTop: "120px",
+                            }}
+                        >
                             {/* About Me Section */}
                             <div
                                 style={{
-                                    background: "linear-gradient(145deg, rgba(20,20,25,0.95), rgba(10,10,15,0.9))",
-                                    backdropFilter: "blur(30px)",
-                                    borderRadius: "20px",
+                                    background: "rgba(10, 10, 10, 0.8)",
+                                    backdropFilter: "blur(20px)",
+                                    borderRadius: "24px",
                                     padding: "28px 32px",
-                                    border: "2px solid rgba(0,255,136,0.2)",
-                                    boxShadow: "0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
+                                    border: "1px solid rgba(0, 255, 136, 0.2)",
+                                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(0, 255, 136, 0.1), inset 0 0 20px rgba(0, 255, 136, 0.05)",
                                     position: "relative",
                                     overflow: "hidden",
                                     transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                                    maxWidth: "580px",
+                                    width: "100%",
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.transform = "translateY(-6px)";
@@ -316,12 +326,10 @@ export default function AdrikaSarawatPage() {
                                             style={{
                                                 fontSize: "26px",
                                                 fontWeight: "700",
-                                                background: "linear-gradient(135deg, #ffffff, #00ff88)",
-                                                WebkitBackgroundClip: "text",
-                                                WebkitTextFillColor: "transparent",
-                                                backgroundClip: "text",
+
                                                 letterSpacing: "-0.3px",
                                                 margin: 0,
+                                                color: "#00ff88",
                                             }}
                                         >
                                             About Me
@@ -502,18 +510,20 @@ export default function AdrikaSarawatPage() {
                                 </div>
                             </div>
 
-                            {/* Technical Skills Section */}
+                            {/* Technical Skills Section - Below About Me */}
                             <div
                                 style={{
-                                    background: "linear-gradient(145deg, rgba(20,20,25,0.95), rgba(10,10,15,0.9))",
-                                    backdropFilter: "blur(30px)",
-                                    borderRadius: "20px",
+                                    background: "rgba(10, 10, 10, 0.8)",
+                                    backdropFilter: "blur(20px)",
+                                    borderRadius: "24px",
                                     padding: "28px 32px",
-                                    border: "2px solid rgba(0,255,136,0.2)",
-                                    boxShadow: "0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
+                                    border: "1px solid rgba(0, 255, 136, 0.2)",
+                                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(0, 255, 136, 0.1), inset 0 0 20px rgba(0, 255, 136, 0.05)",
                                     position: "relative",
                                     overflow: "hidden",
                                     transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                                    maxWidth: "580px",
+                                    width: "100%",
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.transform = "translateY(-6px)";
@@ -541,12 +551,9 @@ export default function AdrikaSarawatPage() {
                                             style={{
                                                 fontSize: "26px",
                                                 fontWeight: "700",
-                                                background: "linear-gradient(135deg, #ffffff, #00ff88)",
-                                                WebkitBackgroundClip: "text",
-                                                WebkitTextFillColor: "transparent",
-                                                backgroundClip: "text",
                                                 letterSpacing: "-0.3px",
                                                 margin: 0,
+                                                color: "#00ff88",
                                             }}
                                         >
                                             Technical Skills
@@ -662,7 +669,7 @@ export default function AdrikaSarawatPage() {
             transform: scale(0.9);
           }
         }
-      `}</style>
-        </div>
+      `}</style >
+        </div >
     );
 }
