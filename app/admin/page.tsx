@@ -1,6 +1,25 @@
 import { createClient } from '@/lib/supabase-server'
 import { redirect } from 'next/navigation'
 import LogoutButton from './LogoutButton'
+import RecruitmentToggle from './RecruitmentToggle'
+import { contentfulClient } from '@/lib/contentful'
+
+async function getRecruitmentStatus() {
+    try {
+        const entries = await contentfulClient.getEntries({
+            content_type: 'globalSettings',
+            limit: 1
+        })
+
+        if (entries.items.length > 0) {
+            return (entries.items[0].fields.isRecruitmentOpen as boolean) || false
+        }
+        return false
+    } catch (error) {
+        console.error('Error fetching global settings:', error)
+        return false
+    }
+}
 
 export default async function AdminPage() {
     const supabase = await createClient()
@@ -12,6 +31,8 @@ export default async function AdminPage() {
     if (!user) {
         redirect('/login')
     }
+
+    const isRecruitmentOpen = await getRecruitmentStatus()
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white relative overflow-hidden">
@@ -32,6 +53,8 @@ export default async function AdminPage() {
                     <p className="text-sm text-white/40 mb-1">Logged in as</p>
                     <p className="text-lg font-medium text-white">{user.email}</p>
                 </div>
+
+                <RecruitmentToggle initialStatus={isRecruitmentOpen} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                     <a href="/admin/events" className="group p-6 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all duration-300 flex flex-col items-center gap-3 text-center">

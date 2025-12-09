@@ -26,20 +26,22 @@ export async function toggleRecruitmentStatus(isOpen: boolean) {
             console.log('Global Settings entry not found, attempting to create one...')
 
             try {
-                // Try to create a new globalSettings entry
+                // Try to create a new globalSettings entry with all fields
                 entry = await environment.createEntry('globalSettings', {
                     fields: {
-                        isRecruitmentOpen: {
-                            'en-US': isOpen
-                        }
+                        eventName: { 'en-US': 'Default Event' },
+                        isRegOpen: { 'en-US': false },
+                        bannerText: { 'en-US': '' },
+                        isRecruitmentOpen: { 'en-US': isOpen }
                     }
                 })
 
                 await entry.publish()
                 console.log('Successfully created globalSettings entry')
-            } catch (createError) {
+            } catch (createError: unknown) {
                 console.error('Failed to create globalSettings entry:', createError)
-                throw new Error('Global Settings entry not found and could not be created. Please create a "globalSettings" content type in Contentful with an "isRecruitmentOpen" boolean field.')
+                const errorMessage = createError instanceof Error ? createError.message : 'Unknown error'
+                throw new Error(`Global Settings entry not found and could not be created: ${errorMessage}. Please create a globalSettings entry manually in Contentful.`)
             }
         } else {
             entry = entries.items[0]
@@ -85,4 +87,50 @@ export async function fetchRecruitments(startDate?: string, endDate?: string) {
     }
 
     return data || []
+}
+
+interface RecruitmentFormData {
+    name: string
+    email_college: string
+    email_personal: string
+    phone: string
+    reg_no: string
+    year: number
+    section: string
+    branch: string
+    team_preference: string
+    resume_link: string
+    technical_skills?: string | null
+    design_skills?: string | null
+    description: string
+}
+
+export async function submitRecruitment(formData: RecruitmentFormData) {
+    const supabase = await createAdminClient()
+
+    const { data, error } = await supabase
+        .from('recruitments')
+        .insert([{
+            name: formData.name,
+            email_college: formData.email_college,
+            email_personal: formData.email_personal,
+            phone: formData.phone,
+            reg_no: formData.reg_no,
+            year: formData.year,
+            section: formData.section,
+            branch: formData.branch,
+            team_preference: formData.team_preference,
+            resume_link: formData.resume_link,
+            techincal_skills: formData.technical_skills || null,
+            design_skills: formData.design_skills || null,
+            description: formData.description
+        }])
+        .select()
+
+    if (error) {
+        console.error('Error submitting recruitment:', JSON.stringify(error, null, 2))
+        throw new Error(`Failed to submit application: ${error.message || 'Unknown error'}`)
+    }
+
+    return data
 }

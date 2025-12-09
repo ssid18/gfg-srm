@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { submitRecruitment } from "@/app/admin/recruitment/actions";
 import { Loader2, Check, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { Logo2 } from "@/app/logo/logo2";
@@ -71,39 +71,16 @@ export default function RecruitmentForm() {
                 branch: data.branch,
                 team_preference: data.team_preference,
                 resume_link: data.resume_link,
-                techincal_skills: data.technical_skills || null,  // Note: DB column is misspelled
+                technical_skills: data.technical_skills || null,
                 design_skills: data.design_skills || null,
                 description: data.description
             };
 
             console.log('Submitting payload:', payload);
 
-            // Try insert with select to get better error information
-            const { data: insertedData, error } = await supabase
-                .from('recruitments')
-                .insert([payload])
-                .select();
+            await submitRecruitment(payload);
 
-            if (error) {
-                console.error('Supabase error details:', {
-                    message: error.message,
-                    details: error.details,
-                    hint: error.hint,
-                    code: error.code
-                });
-
-                // Provide user-friendly error messages
-                let errorMessage = 'Failed to submit application';
-                if (error.code === '42501') {
-                    errorMessage = 'Database permission error. Please contact the administrator.';
-                } else if (error.message) {
-                    errorMessage = error.message;
-                }
-
-                throw new Error(errorMessage);
-            }
-
-            console.log('Successfully inserted data:', insertedData);
+            console.log('Successfully submitted application');
             setSubmitted(true);
         } catch (err) {
             console.error('Error Submitting:', err);
