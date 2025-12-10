@@ -2,6 +2,9 @@ import { contentfulClient } from '@/lib/contentful'
 import RecruitmentManager from './RecruitmentManager'
 import { fetchRecruitments } from './actions'
 
+// Disable caching so data is always fresh
+export const dynamic = 'force-dynamic'
+
 async function getRecruitmentStatus() {
     try {
         const entries = await contentfulClient.getEntries({

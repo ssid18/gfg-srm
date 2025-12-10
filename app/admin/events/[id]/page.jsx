@@ -3,6 +3,9 @@ import { updateEventDetails } from '../actions'
 import GalleryManager from './GalleryManager'
 import { notFound } from 'next/navigation'
 
+// Disable caching so data is always fresh
+export const dynamic = 'force-dynamic'
+
 async function getEvent(id) {
     try {
         const entry = await contentfulClient.getEntry(id)

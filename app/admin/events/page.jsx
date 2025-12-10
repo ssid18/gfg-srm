@@ -1,6 +1,9 @@
 import { contentfulManagementClient, SPACE_ID, ENVIRONMENT_ID } from '@/lib/contentful-admin'
 import Link from 'next/link'
 
+// Disable caching so data is always fresh
+export const dynamic = 'force-dynamic'
+
 async function getEvents() {
     const space = await contentfulManagementClient.getSpace(SPACE_ID)
     const environment = await space.getEnvironment(ENVIRONMENT_ID)

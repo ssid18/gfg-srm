@@ -4,6 +4,9 @@ import LogoutButton from './LogoutButton'
 import RecruitmentToggle from './RecruitmentToggle'
 import { contentfulClient } from '@/lib/contentful'
 
+// Disable caching so data is always fresh
+export const dynamic = 'force-dynamic'
+
 async function getRecruitmentStatus() {
     try {
         const entries = await contentfulClient.getEntries({
