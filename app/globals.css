@@ -79,6 +79,44 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Add these styles to prevent button width changes */
+.all-letters {
+  font-family: 'SF Pro', monospace !important;
+  letter-spacing: 0.02em !important;
+  display: inline-block !important;
+  min-width: max-content !important;
+}
+
+.encrypted, .revealed {
+  font-family: 'SF Pro', monospace !important;
+  letter-spacing: 0.02em !important;
+  display: inline-block !important;
+  transition: none !important;
+  width: auto !important;
+}
+
+/* Make the logo link look clickable */
+a .logo-container {
+  cursor: pointer;
+}
+
+/* added a subtle scale effect on logo hover */
+a:hover .logo-container {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* ensure that the logo link doesn't have underline */
+a[href="/"] {
+  text-decoration: none !important;
+}
+
+/* so it wont flickering*/
+.font-sf-pro {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
