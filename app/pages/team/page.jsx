@@ -7,6 +7,7 @@ import GlassyNavbar from "../../components/GlassyNavbar";
 import Squares from "../../components/Squares";
 import TiltedCard from "../../components/TiltedCard";
 import { motion, AnimatePresence } from "motion/react";
+import { AnimatedTooltip } from "../../../components/ui/animated-tooltip";
 
 // Contentful Client
 const client = createClient({
@@ -100,6 +101,27 @@ export default function TeamPage() {
             memberList: m.generalMembers.split(",").map((s) => s.trim()),
         }));
 
+    // Team member photo mapping - placeholder images (replace with actual photos)
+    const memberPhotoMap = {
+     
+        "Aryan Sharma": "/Users/sahilrajdubey/.gemini/antigravity/brain/cd18f689-c26a-4455-9649-16cdb8fce8d0/team_member_1_1765724493945.png",
+        "Priya Patel": "/Users/sahilrajdubey/.gemini/antigravity/brain/cd18f689-c26a-4455-9649-16cdb8fce8d0/team_member_2_1765724513504.png",
+        "Rahul Kumar": "/Users/sahilrajdubey/.gemini/antigravity/brain/cd18f689-c26a-4455-9649-16cdb8fce8d0/team_member_3_1765724531360.png",
+        "Sneha Gupta": "/Users/sahilrajdubey/.gemini/antigravity/brain/cd18f689-c26a-4455-9649-16cdb8fce8d0/team_member_4_1765724547957.png",
+        "Vikram Singh": "/Users/sahilrajdubey/.gemini/antigravity/brain/cd18f689-c26a-4455-9649-16cdb8fce8d0/team_member_5_1765724575419.png",
+    
+    };
+
+    // Convert team members to AnimatedTooltip format
+    const getTooltipItems = (memberList) => {
+        return memberList.map((name, index) => ({
+            id: index + 1,
+            name: name,
+            designation: "Team Member",
+            image: memberPhotoMap[name] || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=46b94e&color=fff&size=100`,
+        }));
+    };
+
     return (
         <div style={{ width: "100%", minHeight: "100vh", position: "relative" }}>
             {/* Background */}
@@ -163,11 +185,11 @@ export default function TeamPage() {
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-                        <div style={{ maxWidth: "1200px", width: "100%", display: "flex", flexDirection: "column", gap: "80px" }}>
+                        <div style={{ maxWidth: "1400px", width: "100%", display: "flex", flexDirection: "column", gap: "80px" }}>
 
                             {/* Leadership */}
                             {leadership.length > 0 && (
-                                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "30px" }}>
+                                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(30px, 4vw, 60px)" }}>
                                     {leadership.map((member) => (
                                         <MemberCard key={member.id} member={member} big router={router} year={selectedYear} />
                                     ))}
@@ -176,172 +198,116 @@ export default function TeamPage() {
 
                             {/* Core Team */}
                             {coreTeam.length > 0 && (
-                                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "30px" }}>
+                                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(30px, 4vw, 60px)" }}>
                                     {coreTeam.map((member) => (
                                         <MemberCard key={member.id} member={member} router={router} year={selectedYear} />
                                     ))}
                                 </div>
                             )}
 
-                            {/* General Members Accordion */}
+                            {/* Team-wise Members Section - Clean Design */}
                             {teamsWithMembers.length > 0 && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 30 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.6 }}
+                                    className="w-full mt-20 px-4"
                                 >
-                                    <motion.h2
+                                    {/* Section Header */}
+                                    <motion.div
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         whileInView={{ opacity: 1, scale: 1 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.5 }}
-                                        style={{
-                                            textAlign: "center",
-                                            marginBottom: "40px",
-                                            fontSize: "2.5rem",
-                                            background: "linear-gradient(135deg, #46b94e 0%, #ffffff 50%, #46b94e 100%)",
-                                            backgroundSize: "200% 200%",
-                                            WebkitBackgroundClip: "text",
-                                            WebkitTextFillColor: "transparent",
-                                            backgroundClip: "text",
-                                            animation: "gradient-shift 3s ease infinite"
-                                        }}
+                                        className="text-center mb-16"
                                     >
-                                        Core Members
-                                    </motion.h2>
+                                        <h2 className="text-5xl md:text-6xl font-bold mb-4 text-white">
+                                            Our Core Members
+                                        </h2>
+                                        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                                            Meet the talented individuals driving each department
+                                        </p>
+                                    </motion.div>
 
-                                    <div style={{ display: "grid", gap: "20px" }}>
+                                    {/* Single Column Team Layout - Wider & Collapsible */}
+                                    <div className="max-w-6xl mx-auto space-y-6">
                                         {teamsWithMembers.map((team, idx) => (
                                             <motion.div
                                                 key={idx}
-                                                initial={{ opacity: 0, x: -20 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
+                                                initial={{ opacity: 0, y: 40 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
                                                 viewport={{ once: true }}
-                                                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                                                whileHover={{ scale: 1.02 }}
-                                                style={{
-                                                    background: "rgba(255,255,255,0.03)",
-                                                    borderRadius: "15px",
-                                                    border: "1px solid rgba(70,185,78,0.2)",
-                                                    overflow: "hidden",
-                                                    position: "relative",
-                                                    backdropFilter: "blur(10px)",
-                                                    boxShadow: openTeams[team.teamName]
-                                                        ? "0 8px 32px rgba(70,185,78,0.3)"
-                                                        : "0 4px 16px rgba(0,0,0,0.2)"
-                                                }}
+                                                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                                             >
-                                                {/* Animated gradient border */}
-                                                <div style={{
-                                                    position: "absolute",
-                                                    inset: 0,
-                                                    borderRadius: "15px",
-                                                    padding: "1px",
-                                                    background: openTeams[team.teamName]
-                                                        ? "linear-gradient(135deg, #46b94e, transparent, #46b94e)"
-                                                        : "transparent",
-                                                    WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                                                    WebkitMaskComposite: "xor",
-                                                    maskComposite: "exclude",
-                                                    pointerEvents: "none",
-                                                    opacity: openTeams[team.teamName] ? 1 : 0,
-                                                    transition: "opacity 0.3s ease"
-                                                }} />
-
-                                                <motion.button
+                                                {/* Team Header - Clickable */}
+                                                <button
                                                     onClick={() => toggleTeam(team.teamName)}
-                                                    whileHover={{
-                                                        background: "rgba(70,185,78,0.15)",
-                                                        scale: 1.01
-                                                    }}
-                                                    whileTap={{ scale: 0.98 }}
-                                                    style={{
-                                                        width: "100%",
-                                                        padding: "24px 30px",
-                                                        display: "flex",
-                                                        justifyContent: "space-between",
-                                                        alignItems: "center",
-                                                        background: openTeams[team.teamName]
-                                                            ? "rgba(70,185,78,0.1)"
-                                                            : "transparent",
-                                                        border: "none",
-                                                        color: "white",
-                                                        fontSize: "1.3rem",
-                                                        cursor: "pointer",
-                                                        transition: "all 0.3s ease",
-                                                        position: "relative",
-                                                        zIndex: 1
-                                                    }}
+                                                    className="w-full flex items-center justify-between p-8 text-left hover:bg-white/5 transition-all duration-200"
                                                 >
-                                                    <span style={{
-                                                        fontWeight: "bold",
-                                                        color: openTeams[team.teamName] ? "transparent" : "white",
-                                                        background: openTeams[team.teamName]
-                                                            ? "linear-gradient(90deg, #46b94e, #ffffff)"
-                                                            : "transparent",
-                                                        WebkitBackgroundClip: openTeams[team.teamName] ? "text" : "unset",
-                                                        WebkitTextFillColor: openTeams[team.teamName] ? "transparent" : "white",
-                                                        backgroundClip: openTeams[team.teamName] ? "text" : "unset",
-                                                        transition: "all 0.3s ease"
-                                                    }}>
-                                                        {team.teamName} Team
-                                                    </span>
-                                                    <motion.div
-                                                        animate={{ rotate: openTeams[team.teamName] ? 180 : 0 }}
-                                                        transition={{ duration: 0.3 }}
-                                                    >
-                                                        {openTeams[team.teamName] ? <ChevronUp /> : <ChevronDown />}
-                                                    </motion.div>
-                                                </motion.button>
+                                                    <div className="flex-1">
+                                                        <h3 className="text-3xl font-bold text-white mb-2">
+                                                            {team.teamName}
+                                                        </h3>
+                                                        <p className="text-gray-400">
+                                                            Led by <span className="text-white font-medium">{team.leadName}</span>
+                                                        </p>
+                                                    </div>
+                                                    
+                                                    <div className="flex items-center gap-6">
+                                                        <div className="text-right">
+                                                            <div className="text-2xl font-bold text-white">
+                                                                {team.memberList.length}
+                                                            </div>
+                                                            <p className="text-sm text-gray-400">Members</p>
+                                                        </div>
+                                                        
+                                                        {/* Chevron Icon */}
+                                                        <motion.div
+                                                            animate={{ rotate: openTeams[team.teamName] ? 180 : 0 }}
+                                                            transition={{ duration: 0.3 }}
+                                                            className="text-white"
+                                                        >
+                                                            <ChevronDown size={24} />
+                                                        </motion.div>
+                                                    </div>
+                                                </button>
 
+                                                {/* Collapsible Team Members Grid */}
                                                 <AnimatePresence>
                                                     {openTeams[team.teamName] && (
                                                         <motion.div
                                                             initial={{ height: 0, opacity: 0 }}
                                                             animate={{ height: "auto", opacity: 1 }}
                                                             exit={{ height: 0, opacity: 0 }}
-                                                            transition={{ duration: 0.2, ease: "easeOut" }}
+                                                            transition={{ duration: 0.3, ease: "easeInOut" }}
                                                         >
-                                                            <div style={{
-                                                                padding: "10px 30px 30px",
-                                                                display: "flex",
-                                                                flexWrap: "wrap",
-                                                                gap: "12px"
-                                                            }}>
-                                                                {team.memberList.map((name, i) => (
-                                                                    <motion.span
-                                                                        key={i}
-                                                                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                                                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                                                                        transition={{
-                                                                            delay: i * 0.02,
-                                                                            duration: 0.3,
-                                                                            type: "spring",
-                                                                            stiffness: 200
-                                                                        }}
-                                                                        whileHover={{
-                                                                            scale: 1.1,
-                                                                            rotate: 2,
-                                                                            boxShadow: "0 4px 20px rgba(70,185,78,0.4)",
-                                                                            background: "rgba(70,185,78,0.3)"
-                                                                        }}
-                                                                        whileTap={{ scale: 0.95 }}
-                                                                        style={{
-                                                                            padding: "10px 18px",
-                                                                            background: "rgba(70,185,78,0.2)",
-                                                                            borderRadius: "25px",
-                                                                            fontSize: "0.95rem",
-                                                                            border: "1px solid rgba(70,185,78,0.4)",
-                                                                            cursor: "pointer",
-                                                                            fontWeight: "500",
-                                                                            backdropFilter: "blur(5px)",
-                                                                            transition: "all 0.3s ease"
-                                                                        }}
-                                                                    >
-                                                                        {name}
-                                                                    </motion.span>
-                                                                ))}
+                                                            <div className="px-8 pb-8 pt-4 border-t border-white/10">
+                                                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                                    {team.memberList.map((memberName, i) => {
+                                                                        const memberImage = memberPhotoMap[memberName] || `https://ui-avatars.com/api/?name=${encodeURIComponent(memberName)}&background=1f1f1f&color=fff&size=100`;
+                                                                        
+                                                                        return (
+                                                                            <motion.div
+                                                                                key={i}
+                                                                                initial={{ opacity: 0, y: 10 }}
+                                                                                animate={{ opacity: 1, y: 0 }}
+                                                                                transition={{ delay: i * 0.05 }}
+                                                                                className="flex items-center gap-4 p-4 bg-black/20 rounded-xl hover:bg-black/40 transition-all duration-200 border border-white/5 hover:border-white/10"
+                                                                            >
+                                                                                
+                                                                                {/* Member Name */}
+                                                                                <div className="flex-1 min-w-0">
+                                                                                    <p className="text-white font-medium truncate">
+                                                                                        {memberName}
+                                                                                    </p>
+                                                                                    <p className="text-xs text-gray-500">Team Member</p>
+                                                                                </div>
+                                                                            </motion.div>
+                                                                        );
+                                                                    })}
+                                                                </div>
                                                             </div>
                                                         </motion.div>
                                                     )}
@@ -349,6 +315,37 @@ export default function TeamPage() {
                                             </motion.div>
                                         ))}
                                     </div>
+
+                                    {/* Team Stats Summary */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: 0.3 }}
+                                        className="mt-16 max-w-6xl mx-auto bg-black/30 backdrop-blur-sm border border-white/10 rounded-2xl p-8"                                    >
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                                            <div>
+                                                <div className="text-4xl font-bold text-white mb-2">
+                                                    {teamsWithMembers.reduce((acc, team) => acc + team.memberList.length, 0)}
+                                                </div>
+                                                <p className="text-gray-400 text-sm">Total Team Members</p>
+                                            </div>
+
+                                            <div>
+                                                <div className="text-4xl font-bold text-white mb-2">
+                                                    {teamsWithMembers.length}
+                                                </div>
+                                                <p className="text-gray-400 text-sm">Active Departments</p>
+                                            </div>
+
+                                            <div>
+                                                <div className="text-4xl font-bold text-white mb-2">
+                                                    {leadership.length + coreTeam.length}
+                                                </div>
+                                                <p className="text-gray-400 text-sm">Core Leadership</p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
                                 </motion.div>
                             )}
                         </div>

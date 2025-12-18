@@ -36,7 +36,7 @@ export default async function ProblemPage({ params }) {
     const defaultCode = starterCode.javascript || "// Start coding here...";
 
     return (
-        <div className="pt-20 min-h-screen">
+        <div className="min-h-screen">
             <IDEClient problem={problem} initialCode={defaultCode} />
         </div>
     );
