@@ -142,9 +142,6 @@ const ProblemCard = ({ problem, isSolved, index }) => {
                 <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                     <div className={`absolute inset-0 rounded-2xl border ${config.border} blur-sm`} />
                 </div>
-
-                {/* Top Right Corner Shine Effect */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </div>
         </Link>
     );

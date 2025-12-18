@@ -219,14 +219,7 @@ export default async function PracticePage() {
                             {/* Problems List */}
                             <div className="space-y-3">
                                 {problems.map((problem, index) => (
-                                    <div 
-                                        key={problem.sys.id}
-                                        style={{ 
-                                            animationDelay: `${index * 50}ms`,
-                                            animation: 'fadeInUp 0.5s ease-out forwards',
-                                            opacity: 0
-                                        }}
-                                    >
+                                    <div key={problem.sys.id}>
                                         <ProblemCard
                                             problem={problem}
                                             isSolved={solvedProblems.has(problem.fields.slug)}

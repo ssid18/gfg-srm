@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CodeEditor from '@/components/CodeEditor';
 import ConsoleOutput from '@/components/ConsoleOutput';
 import { Play, Send, ChevronDown, Code2, BookOpen, ListChecks, ArrowLeft, Maximize2, Minimize2, Timer, TrendingUp } from 'lucide-react';
@@ -16,6 +16,11 @@ const IDEClient = ({ problem, initialCode }) => {
     const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState('description'); // description | hints | submissions
     const [isFullscreen, setIsFullscreen] = useState(false);
+
+    // Reset scroll position when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const starterCodes = problem.fields.starterCode || {};
 
