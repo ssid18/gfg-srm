@@ -19,7 +19,7 @@ export default function SunveerSinghProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Sunveer Singh, currently pursuing my third year at SRM Institute of Science and Technology, Delhi NCR, Modinagar, and I am committed to strengthening my technical foundation along with professional ethics. I approach challenges with a calm and analytical mindset, focusing on practical and efficient solutions. I believe consistency, responsibility, and adaptability are key attributes for long-term success. I work effectively in team environments and value open communication and collaboration. I actively seek learning opportunities through academic coursework and independent practice to improve my skills continuously. I maintain discipline and professionalism in my work and interactions. I adapt well to changing environments and remain focused on achieving objectives. My long-term goal is to become a dependable and skilled professional who contributes positively to organizational growth and technological advancement.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function SunveerSinghProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                             Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
