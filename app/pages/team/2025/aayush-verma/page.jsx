@@ -19,7 +19,7 @@ export default function AayushVermaProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Aayush Verma, currently in my third year at SRM Institute of Science and Technology, Delhi NCR Campus, Modinagar, and I am highly enthusiastic about technology and innovation. I focus on strengthening my analytical thinking and problem-solving skills through consistent learning and project-based experience. I believe that setting clear goals and working systematically toward them is essential for success. I actively explore new concepts and tools to enhance my  understanding and stay aligned with current trends. I maintain a proactive approach toward learning and continuously seek opportunities for improvement. I work effectively in team environments and value communication, coordination, and mutual respect. I approach challenges with a positive mindset and remain adaptable to change. Along with  development, I emphasize discipline, accountability, and professional ethics. My aim is to grow into a skilled and adaptable professional who can meet evolving industry demands with confidence and deliver reliable and impactful solutions.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function AayushVermaProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                             Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

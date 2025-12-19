@@ -150,7 +150,7 @@ export default async function PracticePage() {
                                 letterSpacing: "-3px",
                                 lineHeight: "1.1",
                             }}>
-                                CODING <span style={{ color: "#46b94e" }}> CHALLENGES</span>
+                                CODING <span style={{ color: "rgba(32,140,41,1)" }}> CHALLENGES</span>
                             </h1>
                         
                         <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">

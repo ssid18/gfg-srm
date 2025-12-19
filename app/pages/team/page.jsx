@@ -60,6 +60,7 @@ export default function TeamPage() {
                         team: item.fields.team,
                         image: imgUrl ? (imgUrl.startsWith("//") ? `https:${imgUrl}` : imgUrl) : null,
                         generalMembers: item.fields.generalMembers,
+                        coLead: item.fields.coLead,
                         socials: {
                             linkedin: item.fields.linkedin,
                             github: item.fields.github,
@@ -98,6 +99,7 @@ export default function TeamPage() {
         .map((m) => ({
             teamName: m.team,
             leadName: m.name,
+            coLeadName: m.coLead,
             memberList: m.generalMembers.split(",").map((s) => s.trim()),
         }));
 
@@ -266,6 +268,9 @@ export default function TeamPage() {
                                                         </h3>
                                                         <p className="text-gray-400">
                                                             Led by <span className="text-white font-medium">{team.leadName}</span>
+                                                            {team.coLeadName && (
+                                                                <> & <span className="text-white font-medium">{team.coLeadName}</span></>
+                                                            )}
                                                         </p>
                                                     </div>
                                                     
@@ -310,8 +315,8 @@ export default function TeamPage() {
                                                                                 transition={{ delay: i * 0.05 }}
                                                                                 className="flex items-center gap-4 p-4 bg-black/20 rounded-xl hover:bg-black/40 transition-all duration-200 border border-white/5 hover:border-white/10"
                                                                             >
-                                                                                
-                                                                                {/* Member Name */}
+                                                                            
+
                                                                                 <div className="flex-1 min-w-0">
                                                                                     <p className="text-white font-medium truncate">
                                                                                         {memberName}

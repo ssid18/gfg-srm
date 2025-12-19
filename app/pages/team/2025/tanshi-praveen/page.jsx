@@ -19,7 +19,7 @@ export default function TanshiPraveenProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Tanshi Praveen, currently pursuing my third year at SRM Institute of Science and Technology, Delhi NCR, Modinagar, and I consider myself a motivated and organized individual with a strong sense of responsibility. I believe that structured learning, attention to detail, and consistent effort form the foundation of academic and professional success. I focus on developing a balanced skill set that includes technical understanding, effective communication, and professional discipline. I approach every task with planning and clarity, ensuring smooth execution and timely completion. I adapt easily to new challenges and see them as opportunities to learn and grow rather than obstacles. I enjoy working in collaborative environments where teamwork, coordination, and mutual respect are essential for achieving shared objectives. I actively contribute by supporting team members and maintaining open communication. I also focus on improving my interpersonal skills, as I believe they play a critical role in professional environments. With a positive learning attitude and commitment to self-improvement, my goal is to prepare myself for responsible professional roles where I can contribute effectively, uphold ethical standards, and continue growing both personally and professionally.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function TanshiPraveenProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                             Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
