@@ -19,7 +19,7 @@ export default function TanujKocharProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Tanuj Kochar, a third-year undergraduate student at SRM Institute of Science and Technology, Delhi NCR Campus, Modinagar, with a strong analytical mindset and a structured approach to learning. I enjoy working on tasks that require logical reasoning, precision, and clarity. I focus on developing industry-relevant skills through academic learning, projects, and self-driven practice. I believe efficiency, accountability, and consistency are critical qualities for professional success. I actively participate in team activities and value constructive feedback as a means of improvement. I approach learning with discipline and a goal-oriented mindset, ensuring steady progress. I adapt well to challenges and focus on delivering reliable results. My aim is to build a strong technical foundation and grow into a professional who consistently delivers high-quality, well-executed solutions.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function TanujKocharProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                            Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

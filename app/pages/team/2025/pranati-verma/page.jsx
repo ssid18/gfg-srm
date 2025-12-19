@@ -19,7 +19,7 @@ export default function PranatiVermaProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Pranati Verma, a third-year undergraduate student at SRM Institute of Science and Technology, Delhi NCR, Modinagar, known for my organized and detail-oriented approach toward learning and responsibilities. I believe in maintaining conceptual clarity and applying knowledge practically to achieve meaningful outcomes. I focus on developing both my technical skills and interpersonal abilities, as I understand the importance of balance in professional growth. I approach academic tasks with sincerity, responsibility, and a strong sense of discipline, ensuring that quality and consistency are maintained. I enjoy working in collaborative environments where ideas are exchanged freely and refined through discussion. I am receptive to feedback and view it as an opportunity to improve and grow. I adapt well to new situations and remain focused under pressure. I strongly value professionalism, ethical conduct, and continuous learning, which guide my academic and personal decisions. My long-term goal is to establish myself as a capable and confident professional who contributes effectively to organizational objectives while continuously expanding knowledge and skills.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function PranatiVermaProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                             Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

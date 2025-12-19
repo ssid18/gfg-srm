@@ -19,7 +19,7 @@ export default function AjeetSinghRawatProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Ajeet Singh Rawat, a third-year student at SRM Institute of Science and Technology, Delhi NCR Campus, Modinagar, with a strong interest in technology and system-oriented thinking. I believe that meaningful learning happens when theoretical knowledge is combined with hands-on application and logical reasoning. I consistently work on enhancing my technical skills through academic coursework, projects, and independent practice. I am disciplined, focused, and committed to continuous improvement, understanding that growth is a gradual and consistent process. I approach challenges with determination and a problem-solving mindset, aiming to understand issues at their root before implementing solutions. I value teamwork and believe that collaborative efforts lead to stronger results and better learning experiences. I actively contribute ideas, support peers, and work responsibly within team environments. I also emphasize adaptability, accountability, and professional conduct, which I consider essential traits for a successful career. My objective is to build a strong professional foundation that enables me to handle future industry challenges confidently while contributing positively to organizational success.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function AjeetSinghRawatProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                            Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

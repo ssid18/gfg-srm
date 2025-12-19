@@ -19,7 +19,7 @@ export default function HarshBhushanDixitProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Harsh Bhushan Dixit, a third-year undergraduate student at SRM Institute of Science and Technology, Delhi NCR Campus, Modinagar, who is deeply committed to academic growth and professional development. I strongly believe in building a solid foundation in core technical concepts and continuously refining my analytical and problem-solving abilities. I approach learning with discipline, consistency, and a structured mindset, ensuring that I understand concepts thoroughly rather than memorizing them superficially. I actively engage in academic projects, self-practice, and skill development activities to enhance my practical understanding and technical competence. I value teamwork and collaboration, as working with peers helps me gain diverse perspectives and improves collective outcomes. I maintain a responsible and professional attitude toward all tasks, meeting deadlines while ensuring quality and clarity in my work. I adapt well to challenges and focus on finding logical and efficient solutions under pressure. Alongside technical skills, I place importance on professional ethics, communication, and adaptability, which I believe are essential for long-term success. My long-term objective is to develop into a dependable and skilled professional who can contribute meaningfully to organizational goals while continuously upgrading knowledge to meet evolving industry requirements.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function HarshBhushanDixitProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                          Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

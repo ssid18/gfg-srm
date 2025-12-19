@@ -19,7 +19,7 @@ export default function ShivangiSaxenaProfile() {
         email: "member@srmist.edu.in",
         linkedin: "#",
         github: "#",
-        about: "Loading profile information...",
+        about: "I am Shivangi Saxena, a third-year student at SRM Institute of Science and Technology, Delhi NCR, Modinagar, dedicated to academic excellence and personal development. I approach my responsibilities with professionalism, organization, and a positive attitude. I actively work on enhancing my technical understanding while also focusing on communication and teamwork skills. I believe adaptability and continuous learning are essential in today’s dynamic professional environment. I handle tasks responsibly and ensure deadlines are met without compromising quality. I adapt well to new challenges and maintain composure under pressure. I value ethical practices, consistency, and discipline in both academic and collaborative work. I enjoy contributing to team efforts and supporting shared objectives. My long-term aspiration is to establish myself as a confident and competent professional who adds value through dedication, responsibility, and continuous self-improvement.",
         profileImage: "/placeholder.png",
         skills: [
             { name: "React", level: "Advanced", color: "#61DAFB" },
@@ -238,7 +238,7 @@ export default function ShivangiSaxenaProfile() {
                                         <div className="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full" />
                                         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                                             <Code size={24} />
-                                            Technical Skills
+                                            Skills
                                         </h2>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
