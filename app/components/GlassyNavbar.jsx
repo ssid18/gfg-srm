@@ -107,8 +107,8 @@ export default function GlassyNavbar() {
                     animate={isHovered}
                     animateOn="hover"
                     revealDirection="center"
-                    speed={50} // Faster speed
-                    maxIterations={8} // Fewer iterations for quicker completion
+                    speed={50}
+                    maxIterations={8}
                     characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+"
                     className="revealed font-sf-pro"
                     parentClassName="all-letters"
