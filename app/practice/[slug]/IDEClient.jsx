@@ -20,6 +20,8 @@ const IDEClient = ({ problem, initialCode }) => {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submissionResult, setSubmissionResult] = useState(null);
 
     // Check authentication status
     useEffect(() => {
