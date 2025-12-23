@@ -45,7 +45,7 @@ const IDEClient = ({ problem, initialCode }) => {
         }
     };
 
-    const handleRun = async () => {
+    const handleRun = async (isSubmit = false) => {
         setIsRunning(true);
         setExecutionResult(null);
         setError(null);
@@ -264,7 +264,7 @@ const IDEClient = ({ problem, initialCode }) => {
 
                         <div className="flex gap-2 sm:gap-3">
                             <button
-                                onClick={handleRun}
+                                onClick={() => handleRun(false)}
                                 disabled={isRunning}
                                 className="flex items-center gap-2 px-3 py-1.5 sm:px-5 sm:py-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white text-xs sm:text-sm font-semibold rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-green-500/20"
                             >
@@ -272,7 +272,7 @@ const IDEClient = ({ problem, initialCode }) => {
                                 {isRunning ? 'Running...' : 'Run Code'}
                             </button>
                             <button
-                                onClick={handleRun}
+                                onClick={() => handleRun(true)}
                                 disabled={isRunning}
                                 className="flex items-center gap-2 px-3 py-1.5 sm:px-5 sm:py-2 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white text-xs sm:text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
