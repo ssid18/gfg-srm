@@ -42,7 +42,6 @@ export async function verifyOtp(email: string, otp: string) {
         return { error: error.message };
     }
 
-    // After successful OTP verification, create user profile if it doesn't exist
     if (data.user) {
         const { data: existingProfile } = await supabase
             .from('profiles')
@@ -51,14 +50,13 @@ export async function verifyOtp(email: string, otp: string) {
             .single();
 
         if (!existingProfile) {
-            // Create new profile with default values
             const { error: profileError } = await supabase
                 .from('profiles')
                 .insert([
                     {
                         id: data.user.id,
                         college_email: data.user.email,
-                        username: data.user.email?.split('@')[0] || 'user', // Use email prefix as default username
+                        username: data.user.email?.split('@')[0] || 'user',
                         full_name: '',
                         avatar_url: null,
                         total_points: 0,
@@ -69,8 +67,6 @@ export async function verifyOtp(email: string, otp: string) {
 
             if (profileError) {
                 console.error('Error creating profile:', profileError);
-                // Don't return error here, let the user login even if profile creation fails
-                // They can complete their profile later
             }
         }
     }
