@@ -28,6 +28,7 @@ export default function TeamPage() {
     const router = useRouter();
     const [selectedYear, setSelectedYear] = useState(2025);
     const [members, setMembers] = useState([]);
+    const [facultyMembers, setFacultyMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [openTeams, setOpenTeams] = useState({});
 
@@ -40,6 +41,66 @@ export default function TeamPage() {
         }));
     };
 
+    // Fetch faculty members once (independent of year)
+    useEffect(() => {
+        const fetchFacultyMembers = async () => {
+            try {
+                const response = await client.getEntries({
+                    content_type: "memberProfile",
+                    order: 'fields.order',
+                });
+
+                const formatted = response.items.map((item) => {
+                    const imgUrl = item.fields.photo?.fields?.file?.url;
+                    const slug = createSlug(item.fields.name);
+
+                    let orderValue = 999;
+                    if (item.fields.order !== undefined && item.fields.order !== null) {
+                        orderValue = typeof item.fields.order === 'number'
+                            ? item.fields.order
+                            : parseInt(item.fields.order, 10);
+
+                        if (isNaN(orderValue)) {
+                            orderValue = 999;
+                        }
+                    }
+
+                    return {
+                        id: item.sys.id,
+                        slug: slug,
+                        name: item.fields.name,
+                        role: item.fields.role,
+                        team: item.fields.team,
+                        image: imgUrl ? (imgUrl.startsWith("//") ? `https:${imgUrl}` : imgUrl) : null,
+                        generalMembers: item.fields.generalMembers,
+                        coLead: item.fields.coLead,
+                        order: orderValue,
+                        socials: {
+                            linkedin: item.fields.linkedin,
+                            github: item.fields.github,
+                            instagram: item.fields.instagram,
+                            email: item.fields.email,
+                        },
+                    };
+                });
+
+                // Filter only faculty members
+                const faculty = formatted.filter(
+                    (m) =>
+                        m.role?.toLowerCase().includes("faculty") ||
+                        m.role?.toLowerCase().includes("coordinator")
+                ).sort((a, b) => a.order - b.order);
+
+                setFacultyMembers(faculty);
+            } catch (err) {
+                console.error("Error fetching faculty members:", err);
+            }
+        };
+
+        fetchFacultyMembers();
+    }, []);
+
+    // Fetch year-based members
     useEffect(() => {
         const fetchMembers = async () => {
             setLoading(true);
@@ -110,13 +171,8 @@ export default function TeamPage() {
     }, [selectedYear]);
 
     // Filtering Logic with Order Sorting
-    const facultyCoordinators = members
-        .filter(
-            (m) =>
-                m.role?.toLowerCase().includes("faculty") ||
-                m.role?.toLowerCase().includes("coordinator")
-        )
-        .sort((a, b) => a.order - b.order);
+    // Faculty members are now fetched separately and don't depend on year
+    const facultyCoordinators = facultyMembers;
 
     const leadership = members
         .filter(
@@ -194,47 +250,6 @@ export default function TeamPage() {
                         minHeight: "100vh",
                     }}
                 >
-                    <h1 className="font-sf-pro" style={{
-                        fontSize: "clamp(3.5rem, 5vw, 6.5rem)",
-                        fontWeight: "800",
-                        color: "#fff",
-                        marginBottom: "25px",
-                        letterSpacing: "-3px",
-                        lineHeight: "1.1",
-                    }}>
-                        OUR <span style={{ color: "#46b94e" }}> TEAM</span>
-                    </h1>
-
-                    {/* Year Toggle */}
-                    <div
-                        style={{
-                            display: "flex",
-                            background: "rgba(255,255,255,0.1)",
-                            borderRadius: "40px",
-                            padding: "5px",
-                            marginBottom: "50px",
-                            backdropFilter: "blur(10px)",
-                        }}
-                    >
-                        {years.map((year) => (
-                            <button
-                                key={year}
-                                onClick={() => setSelectedYear(year)}
-                                style={{
-                                    background: selectedYear === year ? "#46b94e" : "transparent",
-                                    color: "white",
-                                    border: "none",
-                                    padding: "10px 24px",
-                                    borderRadius: "40px",
-                                    cursor: "pointer",
-                                    fontWeight: selectedYear === year ? "bold" : "normal",
-                                }}
-                            >
-                                {year}
-                            </button>
-                        ))}
-                    </div>
-
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
@@ -244,7 +259,7 @@ export default function TeamPage() {
                             {facultyCoordinators.length > 0 && (
                                 <div>
                                     <h2 className="font-sf-pro" style={{
-                                        fontSize: "clamp(2rem, 3vw, 3.5rem)",
+                                        fontSize: "clamp(5rem, 3vw, 5.5rem)",
                                         fontWeight: "800",
                                         color: "#fff",
                                         marginBottom: "40px",
@@ -254,13 +269,57 @@ export default function TeamPage() {
                                     }}>
                                         FACULTY <span style={{ color: "#46b94e" }}>COORDINATOR</span>
                                     </h2>
-                                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(30px, 4vw, 60px)" }}>
+                                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(20px, 4vw, 40px)" }}>
                                         {facultyCoordinators.map((member) => (
                                             <MemberCard key={member.id} member={member} big router={router} year={selectedYear} />
                                         ))}
                                     </div>
                                 </div>
                             )}
+
+                            {/* Our Team Section Header */}
+                            <h1 className="font-sf-pro" style={{
+                                fontSize: "clamp(3.5rem, 5vw, 4.5rem)",
+                                fontWeight: "800",
+                                color: "#fff",
+                                marginBottom: "-20px",
+                                letterSpacing: "-3px",
+                                lineHeight: "1.1",
+                                textAlign: "center",
+                            }}>
+                                OUR <span style={{ color: "#46b94e" }}> TEAM</span>
+                            </h1>
+
+                            {/* Year Toggle */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    background: "rgba(255,255,255,0.1)",
+                                    borderRadius: "40px",
+                                    padding: "1px",
+                                    marginBottom: "2px",
+                                    backdropFilter: "blur(10px)",
+                                    alignSelf: "center",
+                                }}
+                            >
+                                {years.map((year) => (
+                                    <button
+                                        key={year}
+                                        onClick={() => setSelectedYear(year)}
+                                        style={{
+                                            background: selectedYear === year ? "#46b94e" : "transparent",
+                                            color: "white",
+                                            border: "none",
+                                            padding: "10px 24px",
+                                            borderRadius: "40px",
+                                            cursor: "pointer",
+                                            fontWeight: selectedYear === year ? "bold" : "normal",
+                                        }}
+                                    >
+                                        {year}
+                                    </button>
+                                ))}
+                            </div>
 
                             {/* Leadership */}
                             {leadership.length > 0 && (
