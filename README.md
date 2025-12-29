@@ -208,7 +208,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 Need help? Reach out to us!
 
-[![GitHub Issues](https://img.shields.io/badge/GitHub-Issues-181717?logo=github&logoColor=white)](https://github.com/your-org/GEEKSFORGEEKS-SRMIST/issues)
+[![GitHub Issues](https://img.shields.io/badge/GitHub-Issues-181717?logo=github&logoColor=white)](https://github.com/gitcomit8/GEEKSFORGEEKS-SRMIST/issues)
 [![Discord](https://img.shields.io/badge/Discord-Community-7289DA?logo=discord&logoColor=white)](#)
 
 </div>
@@ -221,10 +221,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 <div align="center">
 
-**Built with ❤️ by the GeeksforGeeks SRMIST Chapter**
+**Built with ❤️ by the GeeksforGeeks SRMIST Student Body**
 
-[![GitHub stars](https://img.shields.io/github/stars/your-org/GEEKSFORGEEKS-SRMIST?style=social)](https://github.com/your-org/GEEKSFORGEEKS-SRMIST/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/your-org/GEEKSFORGEEKS-SRMIST?style=social)](https://github.com/your-org/GEEKSFORGEEKS-SRMIST/network/members)
+[![GitHub stars](https://img.shields.io/github/stars/your-org/GEEKSFORGEEKS-SRMIST?style=social)](https://github.com/gitcomit8/GEEKSFORGEEKS-SRMIST/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/your-org/GEEKSFORGEEKS-SRMIST?style=social)](https://github.com/gitcomit8/GEEKSFORGEEKS-SRMIST/network/members)
 
 </div>
 
